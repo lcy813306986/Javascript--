@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var str="* * * 欢迎进入 * * * ";
+		function run(){
+			var s=str.substring(0,1);
+			var a=str.substring(1);
+			str=a+s;
+			document.title=str;
+		}
+		window.setInterval("run()",300);
+	</script>
+</body>
+</html>
