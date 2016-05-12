@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var a=prompt("请给出里程数  公里单位：公里");
+		var b=prompt("请给出等待时间 单位：秒");
+		var c=parseInt(10+b/150);
+		var d=parseInt(10+b/150+(a-3)*2);
+		var e=(12.5+(a-15)*2);
+		var f=parseInt(d+e*0.5);
+		if(a<=3){
+			alert("您的里程费为"+c);
+
+		}
+		if(a>3&&a<=15){
+			alert("您的里程费为"+d);
+
+		}
+		if(a>15){
+			alert("您的里程费为"+f);
+		}
+	</script>
+</body>
+</html>

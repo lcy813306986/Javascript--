@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		for(var i=1000;i<=9999;i++){
+			var a=parseInt(i/1000);
+			var b=parseInt((i%1000)/100);
+			var c=parseInt((i%100)/10);
+			var d=parseInt(i%10);
+			if(a>b&&b>c&&c>d&&a==b+c+d){
+				document.writeln(i);
+			}
+		}
+	</script>
+</body>
+</html>
