@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>函数的参数</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function add(x,y,z){
+			return x+y+z;
+		}
+
+		//实参数比形参数要少
+		document.write(add(1,2)+"</br>");    //NaN
+		//实参数比形参数多
+		document.write(add(1,2,3,4)+"</br>");   //6
+		//在函数中有一个隐含的变量，arguments-->数组，它里面存有所有的实参的值
+
+
+		function  add2(){
+			var sum=0;
+			for(var i=0;i<arguments.length;i++){
+				sum+=arguments[i];
+			}
+			return sum;
+		}
+		document.write(add2(1,2,3,4,5));
+	</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="UTF-8">
+	<title>写函数求两个班级的学生信息</title>
+</head>
+<body>
+	<script ype="text/javascript">
+	 //第一个班的学生信息  ，用数组存储学生信息
+		var classes1=[{
+			name:'leichuying',
+			age:23,
+			gerder:0
+		},{
+			name:'dingyili',
+			age:22,
+			gerder:0
+		},{
+			name:'zhaoxiaomemg',
+			age:18,
+			gender:0
+		}];
+		//第二个班的信息
+		var classes2=[{
+			name:'zangyurong',
+			age:22,
+			gender:0
+		},{
+			name:'liwei',
+			age:21,
+			gender:1
+		},{
+			name:'heluyao',
+			age:22,
+			gender:0
+		}];
+
+		//定义一个函数  求两个班级的平均年龄
+	function getAverageAge( arr ){
+		var avgage=0;
+		var length=arr.length;  //这个是3
+		var sum=0;
+		for(var i=0;i<arr.length;i++){
+			var stu=arr[i];     //从数组取出来的元素都是一个对象
+			sum=sum+stu.age;    //从每个变量名中取出年龄   变量名.属性名
+		}
+		avgage=sum/length;
+		return avgage;
+	}
+	document.write("一班平均年龄是：" +getAverageAge(classes1) +"</br>");
+	document.write("二班平均年龄是：" +getAverageAge(classes2) +"</br>" );
+
+    //求出两个班级的男女比例
+	function getRatio(arr){
+		var femal=0; 
+		var male=0;
+		var length=arr.length;
+		for(var i=0;i<arr.length;i++){
+			var a=arr[i];     //从数组取出来的每一个变量都是一个对象   
+			if(a.gender==0){
+				femal++;     //取出女生的人数
+		}else{
+			male++;   //取出男生的人数
+		}
+		}
+		r=male/femal;
+		return r;
+	}
+	document.write("一班的班级男女比例是："+getRatio(classes1)+"</br>");
+	document.write("二班的班级男女比例是："+getRatio(classes2)+"</br>");
+	</script>一班平均年龄是：21<br>二班平均年龄是：21.666666666666668<br>一班的班级男女比例是：2<br>二班的班级男女比例是：0.5<br>
+
+</body></html>
