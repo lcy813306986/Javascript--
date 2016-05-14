@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="UTF-8">
+	<title>作用域</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var a="bb";  
+		function funA(){
+			 a="aa";  //全局变量
+			document.write("a的值是："+a+"<br/>");   //aa
+		}
+		funA();
+		document.write("a的值是："+a+"<br/>");   //aa
+
+
+		function funB(){
+			var a ="cc";   //局部变量
+			document.write("a的值是："+a+"<br/>"); //cc
+		}
+		funB();
+
+		document.write("a的值是："+a+"<br/>");  //如果在函数里没有声明变量，那么就是全局变量，这样叫做污染
+		//aa
+	</script>a的值是：aa<br>a的值是：aa<br>a的值是：cc<br>a的值是：aa<br>
+
+</body></html>

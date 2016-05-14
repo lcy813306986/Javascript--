@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="UTF-8">
+	<title>内部的私有函数</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function suanfa(a,b,op){
+			function add(){       //作用是包装一些算法
+				return a+b;
+			}
+			function sub(){
+				return a-b;
+			}
+			function mul(){
+				return a*b;
+			}
+			if(op=='+'){
+				return a+b;
+			}else if(op=='-'){
+				return a-b;
+			}else if(op=='*'){
+				return a*b;
+			}
+			}
+	
+		document.write( suanfa (1,2,'*')+"</br>" );
+		document.write( suanfa (1,2,'+') );
+
+	</script>2<br>3
+
+</body></html>

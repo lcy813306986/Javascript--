@@ -1,0 +1,65 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html PUBLIC "" ""><HTML><HEAD><META content="IE=10.000" 
+http-equiv="X-UA-Compatible">
+ 
+<META charset="utf-8"> <TITLE>13_匿名函数回调</TITLE> 
+<META name="GENERATOR" content="MSHTML 10.00.9200.17609"></HEAD> 
+<BODY>
+<SCRIPT type="text/javascript">
+	//需求: 以指定的格式输出结果  ( 将多个数字*2, )
+	function show( arr){
+		for( var i=0;i<arr.length;i++){
+				document.write(   arr[i]+"<br />" );	
+		}
+	}
+	
+	function show2( arr){
+		document.write("<ul>");
+		for( var i=0;i<arr.length;i++){
+				document.write( "<li>"+   arr[i] +"</li>");
+		}	
+		document.write("</ul>");
+	}
+	
+	function jisuan(){
+			//将1,2,3,4从arguments中取出，存到一个数组中,
+			var arr=new Array();
+			for( var i=0;i<arguments.length-1;i++){
+					arr[i]=arguments[i]*2;
+			}
+			//再调用   show(   数组);
+			//判断arguments最后一个参数是否为  function
+			if(   (typeof arguments[arguments.length-1] ) =='function'){
+				// show(arr);
+				arguments[arguments.length-1]( arr );     // arguemnts[arguments.length-] 指的是代码，为激活代码   要加  ();
+			}
+	}
+	
+	//jisuan(     1,2,3,4,  show2  );   // 函数也是一种数据,     这里，传进去的是show函数的代码    要运行的话，必须 show()
+	
+	
+	
+	//使用匿名函数
+	//var add=function(){}
+	jisuan( 1,2,3,4,   function ( arr){
+		for( var i=0;i<arr.length;i++){
+				document.write(   arr[i]+"<br />" );	
+		}
+	});
+	
+	jisuan( 66,77, function ( arr){
+		for( var i=0;i<arr.length;i++){
+				document.write(   arr[i]+"<hr />" );	
+		}
+	});
+	
+	jisuan( 65,7557, function ( arr){
+		document.write("<ul>");
+		for( var i=0;i<arr.length;i++){
+				document.write( "<li>"+   arr[i] +"</li>");
+		}	
+		document.write("</ul>");
+	});
+	
+</SCRIPT>
+ </BODY></HTML>
