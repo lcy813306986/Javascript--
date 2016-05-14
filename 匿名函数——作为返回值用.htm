@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="UTF-8">
+	<title>匿名函数——作为返回值用</title>
+</head>
+<body>
+	<script type="text/javascript">
+		(function(){
+			document.write("hello"+arguments[0]+"</br>");
+		})("zy");
+
+		//匿名函数的自调传参
+
+
+
+
+		//匿名函数作为返回值用
+		function a(){
+			document.write("hello"+"</br>");	
+			return function(name){
+				document.write("bye bye"+name+"</br>");
+			};
+		}
+		a()("张三");
+
+	</script>hellozy<br>hello<br>bye bye张三<br>
+
+</body></html>

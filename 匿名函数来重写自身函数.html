@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>匿名函数来重写自身函数</title>
+</head>
+<body>
+	<script type="text/javascript">
+
+
+		//利用匿名函来重写
+
+		function a(){
+			document.write("hello"+"</br>");
+				a=function(){
+				document.write("byebye"+"</br>");
+				}
+			}
+			a();
+			a();
+
+			//在自调用的代码一次运行这些函数，这样性这些函数就识别出浏览器的类型，并将自身重写
+
+
+
+			function showTable(){
+				var r=2;
+				if (window.ActiveXObject){
+					r=1;
+				}
+				if(r==1){
+					showTable=function(){
+						var arr=arguments[0];
+						document.write("<table border='1' width='400px'>");
+						for(var i=0;i<arr.length;i++){
+							document.write("<tr>");
+							document.write("<td>"+arr[i].name+"</td><td>"+arr[i].age+"</td>");
+							document.write("</tr>");
+						}
+						document.write("</table>");
+					}
+				}else if(r==2){
+						showTable=function(){
+						document.write("<ul>");
+						for(var i=0;i<arr.length;i++){
+							document.write("<li>");
+							document.write(arr[i].name+"  "+arr[i].age);
+							document.write("</li>");
+						}
+						document.write("</ul>");
+			}
+		}
+	}
+			function showTree(){
+				var r=2;
+				if(   window.ActiveXObject ){
+					r=1;	
+			}
+		if( r==1 ){
+			showTree=function(){
+				document.write("以ie的特性来显示tree<br />");	
+			}	
+		}else if( r==2){
+			showTree=function(){
+				document.write("以ff的特性来显示tree<br />");	
+			}	
+		}	
+	}
+	
+		(function(){
+		showTable();
+		showTree();
+	    })();
+	
+	var arr=[{name:"smith",age:20}, {name:"tom",age:22}];
+	showTable(   arr );
+	</script>
+</body>
+</html>
