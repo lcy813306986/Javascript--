@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>连连看</title>
+	<style type="text/css">
+		.zhidao{
+			width: 20px;
+			border:1px solid red;
+			border-radius: 5px;
+		}
+	</style>
+</head>
+<body>
+	请输入你想要删除的两点坐标<br/>
+	第一点坐标：行：<input type="text"/>&nbsp;&nbsp;列：<input type="text"/><br/>
+	第二点坐标：行：<input type="text"/>&nbsp;&nbsp;列：<input type="text"/><br/>
+	<input type="button" value="删除坐标" onclick="del()"/><br/>
+	<div class="chessBoard"></div>
+	<script type="text/javascript">
+		//先完成初始化棋盘的操作
+		var x=0;   //行数
+		var y=0;   //列数
+
+		var border="-";   //用于显示边框
+		var pic_count=10;    //图片数为pic_count-1张，图片序号为1-9
+		//用户控制行数和列数
+		var x=prompt("请输入行数：");
+		//一定是偶数列
+		while(x%2!=0){
+			x=prompt("请输入行数，并且行数应该为偶数");
+		}
+
+		var y=prompt("请输入行数");
+		while(y%2!=0){
+			y=prompt("请输入行数，并且行数应该为偶数");
+		}
+		//因为四周的边框不能用于游戏，所以将x，y都将要加2
+		x=parseInt(x)+2;
+		y=parseInt(y)+2;
+		//	棋盘
+		var chessBoard=new Array();   //先声明一维
+		for(var i=0;i<x;i++){
+			chessBoard[i]=new Array();    //先声明二维
+			for(var j=0;j<y;j++){
+				chessBoard[i][j]=border;   //赋值
+			}
+		}
+		//循环chessBoard数组
+		//随机生成图片，并将图片的序号填入到chessboard中，注意一次生成两张相同的图片
+		var num;
+		for(var i=1;i<x-1;i++){
+			for(var j=1;j<y-1;j=j+2){
+				num=Math.floor(Math.random()*10)+1;
+				while(num==10){
+					num=Math.floor(Math.random()*10)+1;
+				}
+				//随机生成1-9的数字
+				chessBoard[i][j]=num;
+				//这样就可以生成1-9的图片序号，0不行，因为0表示这个位置的图片已经消失了
+				chessBoard[i][j+1]=chessBoard[i][j];
+			}
+		}
+		//使用循环，循环的次数越多，调换的几率就越大，再次随机调换chessboard[][]中的值，打乱它的排序
+		for(var i=0;i<x*y;i++){
+			//定义要调换的两个图片的坐标
+			var index_x1=0;
+			var index_y1=0;
+			var index_x2=0;
+			var index_y2=0;
+			//随机生成要调换的图片坐标，注意图片坐标x,y都不能为0和length-1的数
+			//长度范围1--length-2
+			while(index_x1==0 || index_x1==x-1){
+				index_x1=Math.ceil(Math.random()*x)-1;
+			}
+			while(index_x2==0 || index_x2==x-1){
+				index_x2=Math.ceil(Math.random()*x)-1;
+			}
+			while(index_y1==0 || index_y1==y-1){
+				index_y1=Math.ceil(Math.random()*y)-1;
+			}
+			while(index_y2==0 || index_y2==y-1){
+				index_y2=Math.ceil(Math.random()*y)-1;
+			}
+			var temp=chessBoard[index_x1][index_y1];
+			chessBoard[index_x1][index_y1]=chessBoard[index_x2][index_y2];
+			chessBoard[index_x2][index_y2]=temp;
+		}
+		function show_array(){
+			var str='';
+			str+="<br/>======当前棋盘如下======<br/>";
+			str+="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+			for(var i=1;i<y-1;i++){
+				str+="&nbsp;"+i+"&nbsp;";
+			}
+				str+="<br/>";
+				for(var i=0;i<x;i++){
+					//输出坐标指示
+					if(i!=0&&i!=x-1){
+						str+=i;
+					}else{
+						str+="&nbsp;&nbsp";
+					}
+					for(var j=0;j<y;j++){
+					if(j==0||i==0||i==x-1||j==y-1){
+				    str+="&nbsp;"+chessBoard[i][j]+"&nbsp;";
+				}else{
+					str+="&nbsp;"+chessBoard[i][j]+"&nbsp;";
+				}
+				}
+				str+="<br/>";
+			}
+				str+="=======================";
+				document.getElementsByTagName("div")[0].innerHTML=str;
+		}
+		show_array();
+		function del(){
+			var x1=document.getElementsByTagName("input")[0].value;
+			var y1=document.getElementsByTagName("input")[1].value;
+			var x2=document.getElementsByTagName("input")[2].value;
+			var y2=document.getElementsByTagName("input")[3].value;
+
+			if(chessBoard[x1][y1]==chessBoard[x2][y2]){
+				if (  isSameLine(x1,x2,y1,y2)||isOneZhe(x1,y1,x2,y2) ){
+					chessBoard[x1][y1]="&nbsp;&nbsp;";
+					chessBoard[x2][y2]="&nbsp;&nbsp;";
+					
+				}else{
+					alert("规则不符合，不可消除");
+				}
+				show_array();
+			}else{
+				alert("这两个值不相等,请重新选择");
+			}
+		}
+		
+		function isSameLine(x1,y1,x2,y2){
+			if(x1==x2){
+				var miny=Math.min(y1,y2);
+				var maxy=Math.max(y1,y2);
+				var i=miny+1;
+				for(;i<maxy;i++){
+					if (chessBoard[x1][i]!="&nbsp;&nbsp;"){
+						return false;
+					}
+				}
+				if(i==maxy){
+					return true;
+				}
+			}else if(y1==y2){
+				var minx=Math.min(x1,x2);
+				var maxx=Math.max(x1,x2);
+				var i=minx+1;
+				for(;i<maxx;i++){
+					if(chessBoard[i][y1]!="&nbsp;&nbsp;"){
+						return false;
+					}
+				}
+				if(i==maxx){
+					return true;
+				}
+			}else{
+				return false;
+			}
+
+		}
+		
+		function isOneZhe(x1,y1,x2,y2){
+			var minx=Math.min(x1,x2);
+			var maxx=Math.max(x1,x2);
+			var miny=Math.min(y1,y2);
+			var maxy=Math.max(y1,y2);
+			if(x2>x1){
+				var flag=false;
+				var i=miny+1;
+				for(;i<=maxy;i++){
+					if(chessBoard[minx][i]!="&nbsp;&nbsp;"){
+						flag=true;
+						break;
+					}
+				}
+				if(flag){
+					var j=minx+1;
+					for(;j<=maxx;j++){
+						if(chessBoard[j][miny]!="&nbsp;&nbsp;"){
+						return false;
+					}
+					}
+					var i=miny+1;
+					for(;i<maxy;i++){
+						if(chessBoard[maxx][i]!="&nbsp;&nbsp;"){
+						return false;
+					}
+					}
+					return true;
+				}else{
+					var j=minx+1;
+					for(;j<maxx;j++){
+						if(chessBoard[j][maxy]!="&nbsp;&nbsp;"){
+					return false;
+					}
+					}
+					return true;
+				}
+			}else{
+				var flag=false;
+				var i=miny+1;
+				for(;i<=maxy;i++){
+					if(chessBoard[maxx][i]!="&nbsp;&nbsp;"){
+						flag=true;
+						break;
+					}
+				}
+				if(flag){
+					var j=maxx-1;
+					for(;j>=minx;j--){
+						if(chessBoard[j][miny]!="&nbsp;&nbsp;"){
+						return false;
+					}
+					}
+					var i=miny+1;
+					for(;i<=maxy;i++){
+						if(chessBoard[minx][i]!="&nbsp;&nbsp;"){
+						flag=true;
+						break;
+					}
+					}
+					return true;
+				}else{
+					var j=maxx-1;
+					for(;j>minx;j--){
+						if(chessBoard[j][maxy]!="&nbsp;&nbsp;"){
+					return false;
+					}
+					}
+					return true;
+				}
+			}
+		}
+
+	</script>
+</body>
+</html>
