@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>闭包的应用</title>
+</head>
+<body>
+	<script type="text/javascript">
+	var setAge,getAge;
+		(
+			function(){
+				var age=0;
+				setAge=function(a){
+					age=a;
+				};
+				getAge=function(){
+					return age;
+				};
+			})();
+			document.write(getAge()+"<br/>");
+			setAge(20);
+			document.write(getAge());
+	</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>闭包的应用_封装</title>
+</head>
+<body>
+	<script type="text/javascript">
+	 	function selfNext(arr){
+	 		var index=0;
+	 		return function(){
+	 			return arr[index++];
+	 		}
+
+	 	}
+	 	var mynext=selfNext([1,2,3,4]);
+	 	while( a=mynext()){
+	 		document.write(a+"<br/>");
+	 	}
+	</script>
+</body>
+</html>

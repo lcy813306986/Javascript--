@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>闭包2</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function f1(){
+			var a=[];
+			for(var i=0;i<3;i++){
+				a[i]=function(i){
+					return function(){   //闭包
+						return i*2
+					}
+				}(i);
+			}
+			return a;
+		}
+		var result=f1();
+		document.write(result[0]()+"<br/>"+result[1]()+"<br/>"+result[2]());
+	</script>
+</body>
+</html>
